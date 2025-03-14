@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+
+  button {
+    margin: 5px;
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .escondido {
+    display: none;
+  }
+
+  form {
+    margin-bottom: 20px;
+  }
+
+  input {
+    margin: 5px;
+    padding: 8px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .form-boletim {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+
+  #tabela-boletins {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  #tabela-boletins th,
+  #tabela-boletins td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+
+  #tabela-boletins th {
+    background-color: #f4f4f4;
+  }

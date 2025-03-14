@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 app.use(express.json());
 app.use(cors());
 
-// Conexão com o banco
 async function main() {
   try {
     await prisma.$connect();
@@ -19,7 +18,6 @@ async function main() {
 }
 main();
 
-// Rota para obter todos os alunos
 app.get("/alunos", async (req, res) => {
   try {
     const alunos = await prisma.aluno.findMany();
@@ -29,7 +27,6 @@ app.get("/alunos", async (req, res) => {
   }
 });
 
-// Rota para adicionar um novo aluno
 app.post("/alunos", async (req, res) => {
   try {
     const { nome, idade, turma } = req.body;
@@ -47,7 +44,6 @@ app.post("/alunos", async (req, res) => {
   }
 });
 
-// Rota para atualizar um aluno
 app.put("/alunos/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -62,7 +58,6 @@ app.put("/alunos/:id", async (req, res) => {
   }
 });
 
-// Rota para deletar aluno por id
 app.delete("/alunos/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -76,7 +71,6 @@ app.delete("/alunos/:id", async (req, res) => {
   }
 });
 
-// Rotas para professores
 app.get("/professores", async (req, res) => {
   try {
     const professores = await prisma.professor.findMany();
@@ -110,12 +104,11 @@ app.delete("/professores/:id", async (req, res) => {
   }
 });
 
-// Rota para obter boletins
 app.get("/boletins", async (req, res) => {
   try {
     const boletins = await prisma.boletim.findMany({
       include: {
-        aluno: true, // Inclui os dados do aluno associado
+        aluno: true,
       },
     });
     res.json(boletins);
@@ -129,19 +122,16 @@ app.put("/boletins/:alunoId", async (req, res) => {
     const { alunoId } = req.params;
     const { nota_matematica, nota_portugues, nota_historia, nota_geografia, nota_ciencias } = req.body;
 
-    // Verifica se o boletim já existe
     let boletim = await prisma.boletim.findUnique({
       where: { alunoId: Number(alunoId) },
     });
 
     if (boletim) {
-      // Atualiza o boletim existente
       boletim = await prisma.boletim.update({
         where: { alunoId: Number(alunoId) },
         data: { nota_matematica, nota_portugues, nota_historia, nota_geografia, nota_ciencias },
       });
     } else {
-      // Cria um novo boletim
       boletim = await prisma.boletim.create({
         data: {
           alunoId: Number(alunoId),
@@ -162,7 +152,6 @@ app.put("/boletins/:alunoId", async (req, res) => {
 
 app.use(express.static("public"));
 
-// Servidor rodando na porta 3000
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
