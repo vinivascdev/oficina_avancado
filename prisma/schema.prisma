@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // Usa a variável do .env
+}
+
+model Aluno {
+  id      Int      @id @default(autoincrement())
+  nome    String
+  idade   Int
+  turma   String
+  boletim Boletim? // Relação com Boletim
+}
+
+model Professor {
+  id       Int    @id @default(autoincrement())
+  nome     String
+  materia  String
+}
+
+model Boletim {
+  id              Int    @id @default(autoincrement())
+  alunoId         Int    @unique
+  nota_matematica Float
+  nota_portugues  Float
+  nota_historia   Float
+  nota_geografia  Float
+  nota_ciencias   Float
+  aluno           Aluno  @relation(fields: [alunoId], references: [id], onDelete: Cascade) // Deleção em cascata aqui
+}
